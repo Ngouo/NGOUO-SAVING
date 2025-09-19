@@ -1,0 +1,47 @@
+{% extends "base.html" %}{% block title %}Home{% endblock title %}
+{% block content %}
+
+<div class="card-zone shadow mt-4">
+  <div class="solde">
+    <p>SOLDE
+      <br> <span style="font-size: 25px; font-weight: bold;">{{montant_total}} XAF </span>
+    </p>
+     
+  </div>
+</div>
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css /> -->
+<div class="container-fluid">
+  
+
+{% if request.user.is_superuser  %}
+<a id="operations" class="btn" href="{% url 'operation' %}">Effectuer une Opération</a> <br><br>
+{% endif %}
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="panel mt-3">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                          <h5 style="color: white; font-weight: 550;">HISTORIQUE DES OPERATIONS</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body table-responsive" style="max-height: 320px; overflow-y: auto; overflow-x: auto;">
+                  {% for saving  in savings %}
+                    <div class="zone_operation">
+                        <p> <strong> {{saving.date_ajout}} : </strong>
+                           <br> Un {{saving.type_operation}} de {{saving.montant}} FCFA vient d'etre effectué dans la caisse familiale.
+                          <br> Motif : {{saving.motif}} 
+                        </p>
+                    </div>
+                    {% empty %}
+                      <p>Aucune opération effectuée pour le moment.</p>
+                  {% endfor %}
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock content %}
