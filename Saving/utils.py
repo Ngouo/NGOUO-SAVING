@@ -1,5 +1,4 @@
-from pyexpat.errors import messages
-from urllib import request
+import logging
 from django.core.mail import send_mass_mail
 from django.contrib.auth.models import User
 
@@ -14,7 +13,9 @@ def notification():
         for user in users
     ]
 
+    logger = logging.getLogger(__name__)
+
     try:
-      send_mass_mail(emails, fail_silently=False)
+     send_mass_mail(emails, fail_silently=False)
     except Exception as e:
-       messages.error(request, f"Erreur d’envoi de mail : {str(e)}")
+      logger.error(f"Erreur d’envoi de mail : {str(e)}")
