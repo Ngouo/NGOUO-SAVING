@@ -4,8 +4,13 @@
 <div class="card-zone shadow mt-4">
   <div class="solde">
     <p>SOLDE
+      {% if montant_total %}
       <br> <span style="font-size: 25px; font-weight: bold;">{{montant_total}} XAF </span>
+      {% else %}
+      <br> <span style="font-size: 25px; font-weight: bold;">0 XAF </span>
+      {% endif %}
     </p>
+
      
   </div>
 </div>
