@@ -1,1 +1,1 @@
-web: NgouoSaving.wsgi
+web: gunicorn NgouoSaving.wsgi
