@@ -28,20 +28,22 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body>
-    <main>
-    {% include "nav.html" %} {% block content %}{% endblock content %}
+  <body class="d-flex flex-column min-vh-100">
+    
+        <main class="flex-fill">
+        {% include "nav.html" %} {% block content %}{% endblock content %}
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    </main> 
-    <footer>
-      <div class="gildev" 
-        <center><p style="margin-top: 30px; font-size: 15px; font-weight: 200">
-          Conçu par GilDev - Copyright 2025 
-        </p></center>
-      </div>
-    </footer>
+       </main> 
+       <footer>
+         <div class="gildev" 
+           <center><p style="margin-top: 30px; font-size: 15px; font-weight: 200">
+             Conçu par GilDev - Copyright 2025 
+           </p></center>
+         </div>
+       </footer>
+  
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
