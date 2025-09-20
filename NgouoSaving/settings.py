@@ -110,7 +110,7 @@ DATABASES = {
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.sendinblue.EmailBackend'
+EMAIL_BACKEND = 'anymail.backends.sendinblue.EmailBackend'
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 
