@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Saving, SoldeGlobal
 from .form import SavingForm
 from .utils import notification
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -36,7 +37,16 @@ def operation(request):
 
 
             solde.save()
-            notification()
+            try:
+                notification(
+                    subject="Nouvelle opération enregistrée",
+                    message=f"Une nouvelle opération a été enregistrée. Veuillez consulter la plateforme pour plus d'informations."
+                )
+            except Exception as e:
+                messages.warning(request, f"Opération enregistrée, mais l'envoi du mail a échoué : {str(e)}")
+
+            messages.success(request, "Opération enregistrée avec succès.")
+
 
             return redirect('home')
         

@@ -1,21 +1,26 @@
 import logging
-from django.core.mail import send_mass_mail
-from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
-def notification():
-    users = User.objects.filter(is_active=True).exclude(email='')
+logger = logging.getLogger(__name__)
 
-    emails = [
-        ("Notification NGOUO Saving",
-          "Une opération vient d'etre effectué dans la caisse de la famille NGOUO. Veuillez consulter la palateforme pour plus de détails.", 
-          "ton_email@example.com",
-            [user.email])
-        for user in users
-    ]
+def notification(subject="Nouvelle opération", message="Une nouvelle opération a été enregistrée. Veuillez consulter la plateforme pour plus d'informations."):
+    User = get_user_model()
+    recipients = [user.email for user in User.objects.filter(is_active=True) if user.email]
 
-    logger = logging.getLogger(__name__)
+    if not recipients:
+        logger.warning("Aucun destinataire trouvé pour la notification.")
+        return
 
     try:
-     send_mass_mail(emails, fail_silently=False)
+        email = EmailMessage(
+            subject=subject,
+            body=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=recipients,
+        )
+        email.send(fail_silently=False)
+        logger.info(f"Notification envoyée à {len(recipients)} utilisateurs.")
     except Exception as e:
-      logger.error(f"Erreur d’envoi de mail : {str(e)}")
+        logger.error(f"Erreur lors de l’envoi de la notification : {str(e)}")
